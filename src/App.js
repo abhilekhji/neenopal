@@ -58,30 +58,30 @@ function App() {
   }
 
   const onSliderChange = async (x) => {
-    await setSlider(x.target.value);
-    const newNode = {...selectedNode[0], data:{...selectedNode[0].data, fontSize: slider}}
+    const newSliverValue = x.target.value;
+    await setSlider(newSliverValue);
+    const newNode = {...selectedNode[0], data:{...selectedNode[0].data, fontSize: newSliverValue}}
     const newNodes = [...nodes.filter(node=>selectedNode[0].id!==node.id), newNode];
     await setNodes(newNodes)
+    await dispatch(updateNodes(newNodes));
   }
 
-  const onClickUndo = () => {
+  const onClickUndo = async () => {
     if(past.length!==0){
       const present=past.pop();
-      setFuture([...future, nodes]);
-      setNodes(present);
-      setPast([...past]);
+      await setFuture([...future, nodes]);
+      await setPast([...past]);
+      await setNodes(present);
     }
   }
-  const onClickRedo = () => {
+  const onClickRedo = async () => {
     if(future.length!==0){
       const present = future.pop();
-      setPast([...past, nodes]);
-      setNodes(present);
-      setFuture([...future]);
+      await setPast([...past, nodes]);
+      await setFuture([...future]);
+      await setNodes(present);
     }
   }
-
-  console.log("selected node: ", selectedNode)
 
   return (
     <ReactFlowProvider>
