@@ -1,4 +1,4 @@
-# Project Name
+# NeenOpal project by Abhilekh
 
 A React-based interactive node editor with draggable nodes, customization options, and undo/redo functionalityfor neenOpal created by Abhilekh Dowerah.
 
